@@ -11,29 +11,35 @@ namespace Script.Controller
         {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("Nothing to do");
+            print("Nothing more");
         }
 
         private bool InteractWithCombat()
         {
-            var hits = Physics.RaycastAll(GetMouseRay());
+            // ReSharper disable once Unity.PreferNonAllocApi
+            var ray = GetMouseRay();
+            // ReSharper disable once Unity.PreferNonAllocApi
+            var hits = Physics.RaycastAll(ray);
             foreach (var hit in hits)
             {
                 var target = hit.transform.GetComponent<CombatTarget>();
+                Debug.DrawRay(ray.origin, ray.direction * 1000);
                 if (target == null) continue;
+                print("right target");
                 if (Input.GetMouseButtonDown(0))
                 {
-                    GetComponent<Fighter>().Attack();
+                    GetComponent<Fighter>().Attack(target);
+                    print("combat returns true");
+                    Debug.DrawRay(ray.origin, ray.direction * 1000);
                 }
                 return true;
             }
-
+            print("combat returns false");
             return false;
         }
 
         private bool InteractWithMovement()
         {
-            if (Camera.main == null) return false;
             var ray = GetMouseRay();
             var hasHit = Physics.Raycast(ray, out var hit);
             if (hasHit)
@@ -42,14 +48,13 @@ namespace Script.Controller
                 {
                     GetComponent<Mover>().MoveTo(hit.point);
                 }
-//                Debug.DrawRay(ray.origin, ray.direction * 1000);
+                Debug.DrawRay(ray.origin, ray.direction * 1000);
                 return true;
             }
-
             return false;
         }
 
-        private static Ray GetMouseRay()
+        private Ray GetMouseRay()
         {
             // ReSharper disable once PossibleNullReferenceException
             return Camera.main.ScreenPointToRay(Input.mousePosition);
