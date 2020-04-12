@@ -9,11 +9,12 @@ namespace Script.Controller
     {
         private void Update()
         {
-            InteractWithCombat();
-            InteractWithMovement();
+            if (InteractWithCombat()) return;
+            if (InteractWithMovement()) return;
+            print("Nothing to do");
         }
 
-        private void InteractWithCombat()
+        private bool InteractWithCombat()
         {
             var hits = Physics.RaycastAll(GetMouseRay());
             foreach (var hit in hits)
@@ -24,26 +25,28 @@ namespace Script.Controller
                 {
                     GetComponent<Fighter>().Attack();
                 }
+                return true;
             }
+
+            return false;
         }
 
-        private void InteractWithMovement()
+        private bool InteractWithMovement()
         {
-            if (Input.GetMouseButton(0))
-            {
-                MoveToCursor();
-            }
-        }
-
-        private void MoveToCursor()
-        {
-            if (Camera.main == null) return;
+            if (Camera.main == null) return false;
             var ray = GetMouseRay();
             var hasHit = Physics.Raycast(ray, out var hit);
-            if (hasHit){
-                GetComponent<Mover>().MoveTo(hit.point);
-            } 
-//            Debug.DrawRay(ray.origin, ray.direction * 1000);
+            if (hasHit)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    GetComponent<Mover>().MoveTo(hit.point);
+                }
+//                Debug.DrawRay(ray.origin, ray.direction * 1000);
+                return true;
+            }
+
+            return false;
         }
 
         private static Ray GetMouseRay()
