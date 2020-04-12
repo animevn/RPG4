@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Script
+namespace Script.Core
 {
     public class CamFollow : MonoBehaviour
     {
