@@ -1,5 +1,5 @@
+using Script.Movement;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Script.Controller
 {
@@ -19,7 +19,7 @@ namespace Script.Controller
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             var hasHit = Physics.Raycast(ray, out var hit);
             if (hasHit){
-                GetComponent<NavMeshAgent>().destination = hit.point;
+                GetComponent<Mover>().MoveTo(hit.point);
             } 
 //            Debug.DrawRay(ray.origin, ray.direction * 1000);
         }
