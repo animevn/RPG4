@@ -11,7 +11,7 @@ namespace Script.Controller
         {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("Nothing more");
+//            print("Nothing more");
         }
 
         private bool InteractWithCombat()
@@ -25,16 +25,16 @@ namespace Script.Controller
                 var target = hit.transform.GetComponent<CombatTarget>();
                 Debug.DrawRay(ray.origin, ray.direction * 1000);
                 if (target == null) continue;
-                print("right target");
+//                print("right target");
                 if (Input.GetMouseButtonDown(0))
                 {
                     GetComponent<Fighter>().Attack(target);
-                    print("combat returns true");
+//                    print("combat returns true");
                     Debug.DrawRay(ray.origin, ray.direction * 1000);
                 }
                 return true;
             }
-            print("combat returns false");
+//            print("combat returns false");
             return false;
         }
 
@@ -46,7 +46,7 @@ namespace Script.Controller
             {
                 if (Input.GetMouseButton(0))
                 {
-                    GetComponent<Mover>().MoveTo(hit.point);
+                    GetComponent<Mover>().StartToMoveTo(hit.point);
                 }
                 Debug.DrawRay(ray.origin, ray.direction * 1000);
                 return true;
