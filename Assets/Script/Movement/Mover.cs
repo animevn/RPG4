@@ -1,4 +1,5 @@
 ﻿using Script.Combat;
+using Script.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,7 +31,7 @@ namespace Script.Movement
         
         public void StartToMoveTo(Vector3 destination)
         {
-            
+            GetComponent<ActionScheduler>().StartAction(this);
             GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }

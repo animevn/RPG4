@@ -1,4 +1,5 @@
-﻿using Script.Movement;
+﻿using Script.Core;
+using Script.Movement;
 using UnityEngine;
 
 namespace Script.Combat
@@ -30,6 +31,7 @@ namespace Script.Combat
         public void Attack(CombatTarget combatTarget)
         {
 //            print("Attack you here");
+            GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;
         }
 
