@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponRange: 2
   timeBetweenAttack: 1
+  healthPerHit: 10
 --- !u!4 &732334445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8298292846561783414, guid: 997001f90003ba1428b9d3baf3b252ad,
@@ -168,6 +169,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0332d44b4d4c7c8c3635673054216e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &823542567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5225879495894783276, guid: f130688391cd4a846aed1535a99ed3d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 856209184618529555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &823542568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823542567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce2c419fc4b4a6a863d593aea4f6c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &856209184618529555
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -35,11 +35,14 @@ namespace Script.Combat
             if (!(timeSinceLastAttack > timeBetweenAttack)) return;
             // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
             GetComponent<Animator>().SetTrigger("attack");
+            timeSinceLastAttack = 0;
+        }
+        
+        private void Hit()
+        {
             var enemyHealth = target.GetComponent<Health>();
             enemyHealth.TakeDamage(healthPerHit);
             print(enemyHealth.GetHealth());
-            timeSinceLastAttack = 0;
-
         }
 
         public void Attack(CombatTarget combatTarget)
@@ -53,9 +56,6 @@ namespace Script.Combat
             target = null;
         }
 
-        private void Hit()
-        {
-            
-        }
+       
     }
 }
