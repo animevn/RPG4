@@ -34,15 +34,21 @@ namespace Script.Combat
         {
             if (!(timeSinceLastAttack > timeBetweenAttack)) return;
             // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
+            GetComponent<Animator>().ResetTrigger("stopAttack");
+            // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
             GetComponent<Animator>().SetTrigger("attack");
             timeSinceLastAttack = 0;
         }
         
         private void Hit()
         {
-            var enemyHealth = target.GetComponent<Health>();
-            enemyHealth.TakeDamage(healthPerHit);
-            print(enemyHealth.GetHealth());
+            if (target != null)
+            {
+                var enemyHealth = target.GetComponent<Health>();
+                enemyHealth.TakeDamage(healthPerHit);
+                if ((int)enemyHealth.GetHealth() == 0) Cancel();
+            }
+            
         }
 
         public void Attack(CombatTarget combatTarget)
@@ -53,6 +59,8 @@ namespace Script.Combat
 
         public void Cancel()
         {
+            // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
+            GetComponent<Animator>().SetTrigger("stopAttack");
             target = null;
         }
 

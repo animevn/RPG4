@@ -10,8 +10,8 @@ namespace Script.Controller
         private void Update()
         {
             if (InteractWithCombat()) return;
+            // ReSharper disable once RedundantJumpStatement
             if (InteractWithMovement()) return;
-//            print("Nothing more");
         }
 
         private bool InteractWithCombat()
@@ -23,18 +23,15 @@ namespace Script.Controller
             foreach (var hit in hits)
             {
                 var target = hit.transform.GetComponent<CombatTarget>();
-                Debug.DrawRay(ray.origin, ray.direction * 1000);
                 if (target == null) continue;
-//                print("right target");
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && target.GetComponent<Health>().GetHealth() > 0)
                 {
+                    transform.LookAt(target.transform);
                     GetComponent<Fighter>().Attack(target);
-//                    print("combat returns true");
                     Debug.DrawRay(ray.origin, ray.direction * 1000);
                 }
                 return true;
             }
-//            print("combat returns false");
             return false;
         }
 
@@ -48,7 +45,7 @@ namespace Script.Controller
                 {
                     GetComponent<Mover>().StartToMoveTo(hit.point);
                 }
-                Debug.DrawRay(ray.origin, ray.direction * 1000);
+//                Debug.DrawRay(ray.origin, ray.direction * 1000);
                 return true;
             }
             return false;
