@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Script.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] private float weaponRange = 5f;
         // ReSharper disable once InconsistentNaming
@@ -22,7 +22,7 @@ namespace Script.Combat
             }
             else
             {
-                GetComponent<Mover>().Stop();
+                GetComponent<Mover>().Cancel();
 //                    print("Stop here");
             }
 

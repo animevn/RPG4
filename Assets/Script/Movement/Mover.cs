@@ -1,11 +1,10 @@
-﻿using Script.Combat;
-using Script.Core;
+﻿using Script.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Script.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         // ReSharper disable once InconsistentNaming
         private NavMeshAgent navMeshAgent;
@@ -32,7 +31,6 @@ namespace Script.Movement
         public void StartToMoveTo(Vector3 destination)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }
 
@@ -43,10 +41,9 @@ namespace Script.Movement
             navMeshAgent.isStopped = false;
         }
 
-        public void Stop()
+        public void Cancel()
         {
             navMeshAgent.isStopped = true;
         }
-
     }
 }

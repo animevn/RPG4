@@ -4,16 +4,12 @@ namespace Script.Core
 {
     public class ActionScheduler:MonoBehaviour
     {
-        private MonoBehaviour currentAction;
-        
-        public void StartAction(MonoBehaviour action)
+        private IAction currentAction;
+
+        public void StartAction(IAction action)
         {
             if (currentAction == action) return;
-            if (currentAction != null)
-            {
-                print("Cancel Action: " + currentAction.GetType().Name);
-            }
-            
+            currentAction?.Cancel();
             currentAction = action;
         }
     }
