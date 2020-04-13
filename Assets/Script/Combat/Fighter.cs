@@ -8,6 +8,7 @@ namespace Script.Combat
     {
         [SerializeField] private float weaponRange = 1.5f;
         [SerializeField] private float timeBetweenAttack = 1f;
+        [SerializeField] private float healthPerHit = 10f;
         // ReSharper disable once InconsistentNaming
         private Transform target;
         private float timeSinceLastAttack = 0;
@@ -31,10 +32,12 @@ namespace Script.Combat
 
         private void AttackBehavior()
         {
-            print(timeSinceLastAttack);
             if (!(timeSinceLastAttack > timeBetweenAttack)) return;
             // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
             GetComponent<Animator>().SetTrigger("attack");
+            var enemyHealth = target.GetComponent<Health>();
+            enemyHealth.TakeDamage(healthPerHit);
+            print(enemyHealth.GetHealth());
             timeSinceLastAttack = 0;
 
         }
