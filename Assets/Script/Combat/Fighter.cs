@@ -18,19 +18,23 @@ namespace Script.Combat
             if (isInRange)
             {
                 GetComponent<Mover>().MoveTo(target.position);
-//                    print("start attack");
             }
             else
             {
                 GetComponent<Mover>().Cancel();
-//                    print("Stop here");
+                AttackBehavior();
             }
 
         }
-        
+
+        private void AttackBehavior()
+        {
+            // ReSharper disable once Unity.PreferAddressByIdToGraphicsParams
+            GetComponent<Animator>().SetTrigger("attack");
+        }
+
         public void Attack(CombatTarget combatTarget)
         {
-//            print("Attack you here");
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;
         }
@@ -38,6 +42,11 @@ namespace Script.Combat
         public void Cancel()
         {
             target = null;
+        }
+
+        private void Hit()
+        {
+            
         }
     }
 }
